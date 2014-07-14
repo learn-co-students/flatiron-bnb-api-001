@@ -23,18 +23,15 @@ class ListingsController < ApplicationController
     end
   end
 
-  def new
-  end
-
+  # POST /listings
   def create
   end
 
-  def edit
-  end
-
+  # PATCH /listings/:id
   def update
   end
 
+  # DELETE /listings/:id
   def destroy
   end
 
@@ -44,6 +41,6 @@ class ListingsController < ApplicationController
     end
 
   def listing_params
-    params.require(:listing).permit(:address, :listing_type, :title, :description, :price, :neighborhood, :host)
+    params.require(:listing).permit(:address, :listing_type, :title, :description, :price, :neighborhood_id, :host_id)
   end
 end
