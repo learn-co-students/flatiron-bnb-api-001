@@ -3,6 +3,8 @@
 #
 # Examples:
 #
+    cities = City.create([{ name: 'NYC' }, { name: 'San Fransisco' }])
+
     @nabe1 = Neighborhood.create(name: 'Fi Di', city_id: City.first.id)
     @nabe2 = Neighborhood.create(name: 'Green Point', city_id: City.first.id)
     @nabe3 = Neighborhood.create(name: 'Brighton Beach', city_id: City.first.id)
@@ -32,6 +34,6 @@
 
     @review1 = Review.create(description: "This place was great!", rating: 5, guest_id: User.find_by(id: 4).id, reservation_id: Reservation.first.id)
 
-    @review2 = Review.create(description: "Great place, close to subway!", rating: 4, guest_id: User.find_by(id: 5).id, reservation_id: Reservation.find_by(id: 2).id)
+    @review2 = Review.create(description: "Great place, close to subway!", rating: 4, guest_id: User.find_by(id: 5).id, reservation_id: Reservation.first.id)
 
     @review3 = Review.create(description: "Meh, the host I shared a room with snored.", rating: 3, guest_id: User.find_by(id: 6).id, reservation_id: Reservation.last.id)

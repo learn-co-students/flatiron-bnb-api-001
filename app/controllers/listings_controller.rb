@@ -12,14 +12,14 @@ class ListingsController < ApplicationController
       @listings = @listings.where(price: price)
     end
     respond_to do |format|
-      format.json { render :json @listings, status: 200 }
+      format.json
     end
   end
 
   # GET /listings/:id
   def show
     respond_to do |format|
-      format.json { render :json @listing, status: 200 }
+      format.json
     end
   end
 

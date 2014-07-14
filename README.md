@@ -19,15 +19,9 @@ Let's begin! Be sure to <strong>read through this README</strong>. As always, ta
 
 ## Configuration
 
-There are a few ways to approach our initial codebase organization: we can keep our API and web controllers separate (where we would have two controllers, one that inherits from ActiveRecord::Base and one that inherits from ActiveRecord::API), or we can keep them together, in a way that's pretty similar to what we've been building so far. For our app, we're going to keep them together. However, when a client makes an HTTP request to our server, we want it to have the subdomain "api" (for eg: http://api.example.com/listings). We will need to organize our routes in a block like so:
+There are a few ways to approach our initial codebase organization: we can keep our API and web controllers separate (where we would have two controllers, one that inherits from ActiveRecord::Base and one that inherits from ActiveRecord::API), or we can keep them together, in a way that's pretty similar to what we've been building so far. For our app, we're going to keep them together.
 
-```ruby
-  constraints subdomain: 'api' do 
-    #routes here
-  end
-```
-
-In our application, the following will be our resources:
+Therefore, in our application, the following will be our resources:
 
 * listings
 * users
@@ -37,10 +31,6 @@ In our application, the following will be our resources:
 * reviews (nested under reservations)
 
 Any additional requests our application could respond to would be via filters (eg, get all users that are hosts, get all reservations that are pending, etc).
-
-## Active Model Serializers
-
-We're going to use the [Active Model Serializers gem](https://github.com/rails-api/active_model_serializers) which makes sure that our objects are returned in the proper JSON format.
 
 ## Controllers
 
@@ -52,7 +42,7 @@ We want to build our API to be able handle multiple response formats. Web applic
 
 We're going to build with the mindset of expansion, so we'll be using the `respond_to` method. You may recall seeing this within our controller create and update methods before, when we scaffolded our apps back in the day (life was so much easier back then). No scaffolding allowed in this lab! :hand:
 
-What the `respond_to` method does is allow our controller methods (index, show, etc) to <strong>serve</strong> back a response in different formats (JSON, HTML, XML, etc) to the clients requests.
+What the `respond_to` method does is allow our controller methods (index, show, etc) to <strong>serve</strong> back a response in different formats (JSON, HTML, XML, etc) to the clients' requests.
 
 A `respond_to` block looks something like this:
 
@@ -60,11 +50,36 @@ A `respond_to` block looks something like this:
 def index
   @post = Post.find(params[:id])
   respond_to do |format|
-    format.json { render json: @post, status: 200 }
+    format.json
   end
 end
 ```
 
-Let's break down what's happening with the JSON format. If the client wants `format.json`, render the `@post` object as json, with a response status of 200.
+### `jbuilder`
+
+We're going to use [jbuilder](https://github.com/rails/jbuilder), a Ruby DSL built into Rails that allows us to format our JSON so it comes back in the format we want. For rendering all of the listings, for example, we would format our response here: `views/listings/index.json.jbuilder`. We want our response in json to look something like this:
+
+```ruby
+{
+  {
+    id: 1,
+    address: "123 Main Street",
+    listing_type: "private room",
+    title: "Beautiful Apartment on Main Street",
+    description: "My apartment is great. there's a bedroom. close to subway....blah blah",
+    price: "50.0",
+    neighborhood_id: 1,
+    host_id: 1
+  },
+}
+```
+
+Using jbuilder, we can determine how our data will look by 
+
+```ruby
+json.array!(@listings) do |listing|
+  json.extract! listing, :id, :address, :listing_type, :title, :description, :price, :neighborhood_id, :host_id
+end
+```
 
 ## Resources
