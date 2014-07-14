@@ -1,5 +1,5 @@
 ---
-tags: rails, full application, API, controllers, WIP
+tags: rails, full application, API, controllers, json, respond_to, WIP
 language: ruby
 unit: rails
 module: ??
@@ -15,11 +15,11 @@ Imagine you've got a site that allows hosts to list their apartments for short t
 
 That's where an API comes in handy. So many sites (think Github, Twitter, Meetup.com, Etsy, Airbnb) are actually architectured as APIs, because it's easy then for multiple clients (like mobile apps, the front-end framework of their website, developers building programs with the data) to consume and work with an application's data.
 
-<strong>Before anything</strong>, note that when you generate models, controllers, etc, be sure to include this option, so that it skips tests (which we already have): `--no-test-framework`
+Let's begin! Be sure to read through this README. As always, take it slow and work together. :couple::two_women_holding_hands::two_men_holding_hands:
 
 ## Configuration
 
-There are a few ways to approach the initial codebase organization: we can keep our API and web controllers separate, or we can keep them together. For our app, we're going to keep them together. However, when a client makes an HTTP request to our server, we want it to have the subdomain "api" (for eg: http://api.example.com/listings). We will need to organize our routes in a block like so:
+There are a few ways to approach the initial codebase organization: we can keep our API and web controllers separate (where we have two controllers, one that inherits from ActiveRecord::Base and one that inherits from ActiveRecord::API), or we can keep them together, in a way that's pretty similar to what we've been building so far. For our app, we're going to keep them together. However, when a client makes an HTTP request to our server, we want it to have the subdomain "api" (for eg: http://api.example.com/listings). We will need to organize our routes in a block like so:
 
 ```ruby
   constraints subdomain: 'api' do 
