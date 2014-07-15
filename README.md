@@ -9,11 +9,11 @@ resources: 0
 
 # Flatiron-bnb: Building an API
 
-Many of you have been consuming APIs for various side projects, but instead of being just the consumer of awesome data structures, we're going to be building one ourselves.
+Many of you have been consuming APIs for various side projects, but instead of being just the consumer, we're going to be building one ourselves.
 
-Imagine you've got a site that allows hosts to list their apartments for short term stays, and other users (guests) can book those listings and then review them after their stay (sound familiar?). This sounds like an awesome, useful website, but what if we wanted to build an accompanying iPhone or Android app? It would be inefficient to rewrite the entire program for those platforms. Data would get lost, and our website and mobile apps would soon turn into completely different applications and user experiences.
+Imagine you've built a site that allows hosts to list their apartments for short term stays, and other users (guests) can book those listings and then review them after their stay (sound familiar?). This sounds like an awesome, useful website, but what if we wanted to build an accompanying iPhone or Android app? It would be inefficient to rewrite the entire program for those platforms. Data would get lost, and our website and mobile apps would soon turn into completely different applications and user experiences.
 
-That's where an API comes in handy. So many sites (think Github, Twitter, Meetup.com, Etsy, Airbnb) are actually architectured as APIs, because it's easy then for multiple clients (like mobile apps, the front-end framework of their website, developers building programs with the data) to consume and work with an application's data.
+That's where an API comes in handy. So many applications (think Github, Twitter, Meetup.com, Etsy, Airbnb) are actually architectured as APIs, because it's easy then for multiple clients (like mobile apps, the front-end framework of their website, developers building programs with the data) to consume and work with the application's data.
 
 Let's begin! Be sure to <strong>read through this README</strong>. As always, take it slow and <strong>work together</strong>. :couple::two_women_holding_hands::two_men_holding_hands:
 
@@ -21,7 +21,7 @@ Let's begin! Be sure to <strong>read through this README</strong>. As always, ta
 
 There are a few ways to approach our initial codebase organization: we can keep our API and web controllers separate (where we would have two controllers, one that inherits from ActiveRecord::Base and one that inherits from ActiveRecord::API), or we can keep them together, in a way that's pretty similar to what we've been building so far. For our app, we're going to keep them together.
 
-Therefore, in our application, the following will be our resources:
+Therefore, in our application, the following will be our resources in our `routes.rb`:
 
 * listings
 * users
