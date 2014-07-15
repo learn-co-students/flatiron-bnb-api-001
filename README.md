@@ -47,7 +47,7 @@ What the `respond_to` method does is allow our controller methods (index, show, 
 A `respond_to` block looks something like this:
 
 ```ruby
-def index
+def show
   @post = Post.find(params[:id])
   respond_to do |format|
     format.json
