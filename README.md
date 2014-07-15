@@ -51,9 +51,12 @@ def show
   @post = Post.find(params[:id])
   respond_to do |format|
     format.json
+    format.xml
   end
 end
 ```
+
+`format.json` renders our corresponding jbuilder view.
 
 ### `jbuilder`
 
@@ -78,6 +81,22 @@ json.address @listing.address
 json.listing_type @listing.listing_type
 # etc...
 ```
+
+Because jbuilder is a <strong>Ruby</strong> DSL, we can write plain ol' Ruby in these files as well. We can write conditionals to only return json attributes of an object if say, the attribute isn't empty. For example, in our `show.json.jbuilder` for users, we might only want to display a user's listings only if that user is a host:
+
+```ruby
+if @user.host = true
+  json.listings @user.listings
+end
+```
+
+## Bonuses
+
+* Be able to query/filter users by host status. This will be challenging because the column type is a boolean and JSON does not know how to automatically handle booleans. One strategy would be to convert the params values to boolean in a `before_action` callback.
+
+## Super bonuses
+
+* Turn the class methods for city and neighborhood into get requests/methods.
 
 ## Resources
 * [Rendering JSON responses using Jbuilder](http://www.multunus.com/blog/2014/03/using-jbuilder-instead-erb-rendering-json-response/)
