@@ -57,7 +57,7 @@ end
 
 ### `jbuilder`
 
-We're going to use [jbuilder](https://github.com/rails/jbuilder), a Ruby DSL built into Rails that allows us to format our JSON so it comes back in the format we want. For rendering all of the listings, for example, we would format our response here: `views/listings/index.json.jbuilder`. We want our response in json to look something like this:
+We're going to use [jbuilder](https://github.com/rails/jbuilder), a Ruby DSL built into Rails that allows us to format our JSON response to include whatever we want. For rendering one listing given id as a parameter, for example, we would format our response here: `views/listings/show.json.jbuilder`. We want our response in JSON to look something like this:
 
 ```ruby
 {
@@ -65,21 +65,19 @@ We're going to use [jbuilder](https://github.com/rails/jbuilder), a Ruby DSL bui
     id: 1,
     address: "123 Main Street",
     listing_type: "private room",
-    title: "Beautiful Apartment on Main Street",
-    description: "My apartment is great. there's a bedroom. close to subway....blah blah",
-    price: "50.0",
-    neighborhood_id: 1,
-    host_id: 1
+    # etc...
   },
 }
 ```
 
-Using jbuilder, we can determine how our data will look by 
+Using jbuilder, we can determine how our data will look by assigning it in our jbuilder file:
 
 ```ruby
-json.array!(@listings) do |listing|
-  json.extract! listing, :id, :address, :listing_type, :title, :description, :price, :neighborhood_id, :host_id
-end
+json.id @listing.id
+json.address @listing.address
+json.listing_type @listing.listing_type
+# etc...
 ```
 
 ## Resources
+* [Rendering JSON responses using Jbuilder](http://www.multunus.com/blog/2014/03/using-jbuilder-instead-erb-rendering-json-response/)
