@@ -4,7 +4,7 @@ language: ruby
 unit: rails
 module: ??
 level: advanced
-resources: 0
+resources: 1
 ---
 
 # Flatiron-bnb: Building an API
@@ -25,9 +25,9 @@ Therefore, in our application, the following will be our resources in our `route
 
 * listings
 * users
-* cities
+* cities (only show and index)
 * neighborhoods (only show and index)
-* reservations (only show and index)
+* reservations
 * reviews (nested under reservations)
 
 Any additional requests our application could respond to would be via filters (eg, get all users that are hosts, get all reservations that are pending, etc).

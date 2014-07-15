@@ -8,4 +8,7 @@ Rails.application.routes.draw do
   end
   resources :neighborhoods, only: [:index, :show]
   resources :cities, only: [:index, :show]
+
+  # get 'cities/most_reservations', as: 'cities#most_res'
+  # get '/cities/highest_ratio_to_listings', as: 'cities#highest_ratio_to_listings'
 end
