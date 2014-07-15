@@ -59,12 +59,20 @@ RSpec.describe ListingsController, :type => :controller do
       expect(listing_rating).to eq(@listing1.average_rating)
     end
 
-    it 'returns one listing with its ratings' do 
+    it 'returns one listing with its reviews' do 
       get :show, format: :json, id: 1
       body = JSON.parse(response.body)
       first_listing_review = body["reviews"][0]["description"]
       expect(response.status).to eq 200
       expect(first_listing_review).to eq("This place was great!")
+    end
+
+    it 'returns one listing with its reservations' do 
+      get :show, format: :json, id: 1
+      body = JSON.parse(response.body)
+      first_listing_res = body["reservations"][0]["id"]
+      expect(response.status).to eq 200
+      expect(first_listing_res).to eq(@reservation1.id)
     end
   end
 
@@ -74,6 +82,7 @@ RSpec.describe ListingsController, :type => :controller do
       body = JSON.parse(response.body)
       expect(response.status).to eq 201
       expect(Listing.last.address).to eq("123 Testing Lane")
+      expect(Listing.last.host.host).to eq(true)
     end
 
     it 'fails to create a listing without a neighborhood' do 

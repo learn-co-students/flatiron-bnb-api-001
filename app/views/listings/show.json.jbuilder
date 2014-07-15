@@ -8,3 +8,4 @@ json.neighborhood_id @listing.neighborhood_id
 json.host_id @listing.host_id
 json.average_rating @listing.average_rating
 json.reviews @listing.reviews
+json.reservations @listing.reservations
