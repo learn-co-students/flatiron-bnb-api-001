@@ -33,17 +33,16 @@ RSpec.describe CitiesController, :type => :controller do
     end
 
     it 'returns one city with its neighborhoods as a json attribute' do 
-
+      get :show, format: :json, id: 1
+      body = JSON.parse(response.body)
+      first_nabe = body["neighborhoods"][0]["id"]
+      expect(response.status).to eq 200
+      expect(first_nabe).to eq(@nabe1.id)
     end
   end
 
   describe 'GET /cities/most_res' do 
     xit 'returns city with the most reservations' do 
-      get :show, format: :json, id: 1
-      body = JSON.parse(response.body)
-      nabes = body["neighborhoods"]
-      expect(response.status).to eq 200
-      expect(nabes.count).to eq(3)
     end
   end
 
