@@ -75,6 +75,11 @@ RSpec.describe ListingsController, :type => :controller do
       expect(response.status).to eq 201
       expect(Listing.last.address).to eq("123 Testing Lane")
     end
+
+    it 'fails to create a listing without a neighborhood' do 
+      post :create, format: :json, :listing => {address: "123 Testing Lane", listing_type: "shared room", title: "Testing Listing", description: "idk", price: 1000.00, neighborhood_id: nil, host_id: 1}
+      expect(response.status).to eq 422
+    end
   end
 
   describe 'PATCH /listings/:id' do 
@@ -83,6 +88,11 @@ RSpec.describe ListingsController, :type => :controller do
       body = JSON.parse(response.body)
       expect(response.status).to eq 200
       expect(Listing.last.description).to eq("New awesome description")
+    end
+
+    it 'fails to update a listing without a neighborhood' do 
+      patch :create, format: :json, :listing => {address: "123 Testing Lane", listing_type: "shared room", title: "Testing Listing", description: "idk", price: 1000.00, neighborhood_id: nil, host_id: 1}
+      expect(response.status).to eq 422
     end
   end
 
