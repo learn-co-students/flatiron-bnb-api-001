@@ -1,5 +1,5 @@
 ---
-tags: rails, full application, API, controllers, json, respond_to, WIP
+tags: rails, full application, API, controllers, json, respond_to, jbuilder
 language: ruby
 unit: rails
 module: ??
@@ -21,16 +21,20 @@ Let's begin! Be sure to <strong>read through this README</strong>. As always, ta
 
 There are a few ways to approach our initial codebase organization: we can keep our API and web controllers separate (where we would have two controllers, one that inherits from ActiveRecord::Base and one that inherits from ActiveRecord::API), or we can keep them together, in a way that's pretty similar to what we've been building so far. For our app, we're going to keep them together.
 
+## Routes
+
 Therefore, in our application, the following will be our resources in our `routes.rb`:
 
 * listings
 * users
-* cities (only show and index)
-* neighborhoods (only show and index)
+* cities
+* neighborhoods
 * reservations
-* reviews (nested under reservations)
+* reviews
 
 Any additional requests our application could respond to would be via filters (eg, get all users that are hosts, get all reservations that are pending, etc).
+
+Let the tests guide you as to which routes should be included/excluded. It's best practices to be more exclusive with which routes we want available. We can limit which resources are available by passing either `only:` or `except:` arguments.
 
 ## Controllers
 

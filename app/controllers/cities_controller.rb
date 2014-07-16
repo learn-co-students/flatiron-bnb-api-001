@@ -17,13 +17,4 @@ class CitiesController < ApplicationController
     end
   end
 
-  def most_res
-    respond_to do |format|
-      format.json
-    end
-  end
-
-  def highest_ratio_res_to_listings
-  end
-
 end
