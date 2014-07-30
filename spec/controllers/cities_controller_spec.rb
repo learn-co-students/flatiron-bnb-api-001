@@ -3,41 +3,49 @@ require 'rails_helper'
 RSpec.describe CitiesController, :type => :controller do
   render_views
 
-  describe "GET /cities" do 
-    it 'returns all the cities' do 
+  let(:json) { JSON.parse(response.body) }
+
+  describe "GET /cities.json" do
+    before do
       get :index, format: :json
-      body = JSON.parse(response.body)
-      city_names = body.collect { |l| l["name"] }
-      expect(response.status).to eq 200
-      expect(city_names).to include(City.first.name)
     end
+
+    context 'all cities' do 
+      it 'returns all the cities' do 
+        expect(json.collect { |l| l["name"] }).to include(City.first.name)
+      end
+    end 
   end
 
-  describe 'GET /cities/:id' do 
-    it 'returns one city with all attributes' do 
+  describe 'GET /cities/:id.json' do 
+    before do 
       get :show, format: :json, id: 1
-      body = JSON.parse(response.body)
-      city_id = body["id"]
-      city_name = body["name"]
-      expect(response.status).to eq 200
-      expect(city_id).to eq(City.first.id)
-      expect(city_name).to eq(City.first.name)
     end
 
-    it 'returns one city with its available listings as a json attribute, given start and end dates as params' do 
-      get :show, format: :json, id: 1, start_date: '05-01-2014', end_date: '07-01-2014'
-      body = JSON.parse(response.body)
-      first_city_openings = body["city_openings"][0]["id"]
-      expect(response.status).to eq 200
-      expect(first_city_openings).to eq(@listing1.id)
+    context 'one city' do 
+      it 'returns one city with all attributes' do 
+        expect(json["id"]).to eq(City.first.id)
+      end
     end
 
-    it 'returns one city with its neighborhoods as a json attribute' do 
-      get :show, format: :json, id: 1
-      body = JSON.parse(response.body)
-      nabes = body["neighborhoods"]
-      expect(response.status).to eq 200
-      expect(nabes.count).to eq(3)
+    context 'one city with its available listings' do 
+      before do 
+        get :show, format: :json, id: 1, start_date: '05-01-2014', end_date: '07-01-2014'
+      end
+
+      it 'returns one city with its available listings as a json attribute, given start and end dates as params' do 
+        expect(json["city_openings"][0]["id"]).to eq(@listing1.id)
+      end
+    end
+
+    context 'one city with its neighborhoods' do 
+      before do
+        get :show, format: :json, id: 1
+      end
+      
+      it 'returns one city with its neighborhoods as a json attribute' do 
+        expect(json["neighborhoods"].count).to eq(3)
+      end
     end
   end
 

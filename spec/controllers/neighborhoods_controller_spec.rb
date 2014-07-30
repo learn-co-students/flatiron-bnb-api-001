@@ -3,33 +3,38 @@ require 'rails_helper'
 RSpec.describe NeighborhoodsController, :type => :controller do
   render_views
 
-  describe "GET /neighborhoods" do 
-    it 'returns all the neighborhoods' do 
+  let(:json) { JSON.parse(response.body) }
+
+  describe "GET /neighborhoods.json" do 
+    before do
       get :index, format: :json
-      body = JSON.parse(response.body)
-      nabe_names = body.collect { |l| l["name"] }
-      expect(response.status).to eq 200
-      expect(nabe_names).to include(Neighborhood.first.name)
+    end
+
+    context 'all neighborhoods' do 
+      it 'returns all the neighborhoods' do 
+        expect(json.collect { |l| l["name"] }).to include(Neighborhood.first.name)
+      end
     end
   end
 
-  describe 'GET /neighborhoods/:id' do 
-    it 'returns one neighborhood with all attributes' do 
+  describe 'GET /neighborhoods/:id.json' do 
+    before do
       get :show, format: :json, id: 1
-      body = JSON.parse(response.body)
-      neighborhood_id = body["id"]
-      neighborhood_name = body["name"]
-      expect(response.status).to eq 200
-      expect(neighborhood_id).to eq(Neighborhood.first.id)
-      expect(neighborhood_name).to eq(Neighborhood.first.name)
     end
 
-    it 'returns one neighborhood with its available listings as a json attribute, given start and end dates as params' do 
-      get :show, format: :json, id: 1, start_date: '05-01-2014', end_date: '07-01-2014'
-      body = JSON.parse(response.body)
-      first_neighborhood_openings = body["neighborhood_openings"][0]["id"]
-      expect(response.status).to eq 200
-      expect(first_neighborhood_openings).to eq(@listing1.id)
+    context 'one listing' do 
+      it 'returns one neighborhood with all attributes' do 
+        expect(json["id"]).to eq(Neighborhood.first.id)
+      end
+    end
+
+    context 'one listing with its available listings' do 
+      before do 
+        get :show, format: :json, id: 1, start_date: '05-01-2014', end_date: '07-01-2014'
+      end
+      it 'returns one neighborhood with its available listings as a json attribute, given start and end dates as params' do 
+        expect(json["neighborhood_openings"][0]["id"]).to eq(@listing1.id)
+      end
     end
   end
 end
