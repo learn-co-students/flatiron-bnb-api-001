@@ -1,9 +1,6 @@
 ---
 tags: rails, full application, API, controllers, json, respond_to, jbuilder
 language: ruby
-unit: rails
-module: ??
-level: advanced
 resources: 1
 ---
 
