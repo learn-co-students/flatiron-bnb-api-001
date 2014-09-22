@@ -48,15 +48,5 @@ RSpec.describe CitiesController, :type => :controller do
       end
     end
   end
-
-  describe 'GET /cities/most_res' do 
-    xit 'returns city with the most reservations' do 
-    end
-  end
-
-  describe 'GET /cities/highest_ratio_res_to_listings' do 
-    xit 'returns city with highest ratio of reservations to listings' do 
-    end
-  end
 end
 
