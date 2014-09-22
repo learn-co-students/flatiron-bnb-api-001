@@ -1,0 +1,11 @@
+json.id @listing.id
+json.address @listing.address
+json.listing_type @listing.listing_type
+json.title @listing.title
+json.description @listing.description
+json.price @listing.price
+json.neighborhood_id @listing.neighborhood_id
+json.host_id @listing.host_id
+json.average_rating @listing.average_rating
+json.reviews @listing.reviews
+json.reservations @listing.reservations
