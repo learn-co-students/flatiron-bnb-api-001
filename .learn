@@ -1,0 +1,11 @@
+tags:
+  - rails
+  - full application
+  - API
+  - controllers
+  - json
+  - respond_to
+  - jbuilder
+languages:
+  - ruby
+resources: 1
