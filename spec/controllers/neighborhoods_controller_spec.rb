@@ -33,6 +33,7 @@ RSpec.describe NeighborhoodsController, :type => :controller do
         get :show, format: :json, id: 1, start_date: '05-01-2014', end_date: '07-01-2014'
       end
       it 'returns one neighborhood with its available listings as a json attribute, given start and end dates as params' do 
+
         expect(json["neighborhood_openings"][0]["id"]).to eq(@listing1.id)
       end
     end
