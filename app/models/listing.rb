@@ -12,6 +12,13 @@ class Listing < ActiveRecord::Base
   before_save :make_host
   before_destroy :host_status
 
+  def self.price_filter(price)
+    Listing.all.to_a.keep_if {|l| l.price <= price}
+  end
+
+  def self.type_filter(type)
+    Listing.all.to_a.keep_if {|l| l.listing_type == type}
+  end
   # Finds the average rating for a listing
   def average_rating
     total = 0

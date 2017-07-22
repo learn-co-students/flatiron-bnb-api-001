@@ -23,8 +23,9 @@ RSpec.describe CitiesController, :type => :controller do
     end
 
     context 'one city' do 
-      it 'returns one city with all attributes' do 
+      it 'returns one city with all attributes' do
         expect(json["id"]).to eq(City.first.id)
+
       end
     end
 

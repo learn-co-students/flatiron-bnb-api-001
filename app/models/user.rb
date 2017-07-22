@@ -10,6 +10,17 @@ class User < ActiveRecord::Base
   # has_many :guests, :through => :reservations, :class_name => "User"
 
   # Returns all guests (objects) a host has had
+
+  def self.hosts
+    hosts = []
+    User.all.each do |user|
+      if user.listings != []
+        hosts << user
+      end
+    end
+    hosts
+  end
+
   def guests
     host_guests = []
     self.listings.each do |listing|
